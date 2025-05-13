@@ -1,7 +1,7 @@
 #include "xVMPInterpreter.h"
 #include <stdio.h>
 
-// #define GOVM_CPP_DEBUG
+#define GOVM_CPP_DEBUG
 #define SEG_SIZE 5000
 #define IS_INLINE_FUNC
 #define TEST_GOVM_C
@@ -493,7 +493,7 @@ __inline__ __attribute__((always_inline))
 /* Get Opcode, Opcode encrypt by xorshift32*/
 uint8_t
 get_opcode() {
-  uint8_t cnt = 0;
+  //  uint8_t cnt = 0;
   uint8_t his[OP_TOTAL + 1];
 
   uint8_t curr_byte = get_byte_code();
@@ -534,15 +534,15 @@ void vm_interpreter() {
 
   while (1) {
 
-    if (is_a_new_bb) {
-      opcode_xorshift32_state = get_xorshift_seed();
+    if (is_a_new_bb) {                               // 诶个基本快使用的同一个种子值
+      opcode_xorshift32_state = get_xorshift_seed(); // 小端字节序直接取种子值
       vm_code_state = get_xorshift_seed();
       is_a_new_bb = 0;
 
 #ifdef GOVM_CPP_DEBUG
       printf("In a new BasicBlock. IP = %d\n", ip);
-      printf("opcode_xorshift32_state: %u\n", opcode_xorshift32_state);
-      printf("vm_code_state: %u\n", vm_code_state);
+      printf("opcode_xorshift32_state: 0x%x\n", opcode_xorshift32_state);
+      printf("vm_code_state: 0x%x\n", vm_code_state);
 #endif
     }
 
@@ -602,7 +602,7 @@ int main(void) {
   setbuf(stdout, 0);
   setbuf(stderr, 0);
 
-  ((uintptr_t *)gv_data_seg)[0] = (uintptr_t)test;
+  ((uintptr_t *)gv_data_seg)[0] = (uintptr_t)test; // 数据段的地址
   ((uint32_t *)gv_data_seg)[2] = len;
   data_seg_addr = (uintptr_t)gv_data_seg;
   code_seg_addr = (uintptr_t)gv_code_seg;

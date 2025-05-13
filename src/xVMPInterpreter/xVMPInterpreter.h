@@ -1,9 +1,10 @@
-//#include <string>
-//#include <cstdint>
-#include <stdint.h>
+// #include <string>
+// #include <cstdint>
 #include <assert.h>
+#include <stdint.h>
 
-// Opcode 
+// clang-format off
+// Opcode
 #define ALLOCA_OP           0x01
 #define LOAD_OP             0x02
 #define STORE_OP            0x03
@@ -85,11 +86,7 @@
 #define ICMP_SGE    39  ///< signed greater or equal
 #define ICMP_SLT    40  ///< signed less than
 #define ICMP_SLE    41  ///< signed less or equal
-
-
-
-
-
+// clang-format on
 
 // functions
 uint64_t unpack_code(int size);
@@ -109,5 +106,3 @@ void br_handler();
 void return_handler();
 void vm_interpreter();
 void data_seg_clear();
-
-

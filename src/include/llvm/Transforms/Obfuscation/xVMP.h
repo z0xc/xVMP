@@ -19,4 +19,3 @@ extern bool is_interpreter_function(llvm::Function *targetFunction);
 extern std::string get_vm_function_name(llvm::Function *targetFunction);
 
 #endif
-
